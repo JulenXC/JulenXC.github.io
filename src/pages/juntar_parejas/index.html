@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacer Parejas</title>
+    <style>
+        table,
+        td {
+            border: solid 3px black;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+
+        img {
+            width: 100px;
+            animation: ease-in-out 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="../../javascript/juegos.js"></script>
+
+    <div id="container"></div>
+    <p id="parejas"></p>
+    <button id="btnReset" style="display: none;" onclick="window.location.reload()">Reiniciar</button>
+
+    <script>
+        // variables
+        let cartas = CrearTablaCartas(4, 10);
+        let htmlBuilder = "<table>"
+        let reset = "./Baraja/0.png"
+        let numClicks = 0
+        let col = 0
+        let fila = 1
+        let giros = 0
+        let parejasRestantes = cartas.flat().length / 2
+        let clickable = true
+        let filaGiradas = []
+        let cartasGiradas = []
+        let pareja = []
+
+        // creacion del juego
+        for (let arr of cartas) {
+            htmlBuilder += "<tr>"
+            for (let carta of arr) {
+                filaGiradas.push(false)
+
+                htmlBuilder += "<td>"
+
+                htmlBuilder += `<img src="./Baraja/0.png" id="${fila}${col}" onClick="girar(${fila}${col},${carta})">`
+
+                htmlBuilder += "</td>"
+
+                col++
+            }
+            cartasGiradas.push(filaGiradas)
+            filaGiradas = []
+            col = 0
+            fila++
+            htmlBuilder += "<tr>"
+        }
+        container.innerHTML += htmlBuilder
+
+        parejas.innerHTML = `Parejas restantes: ${parejasRestantes}`;
+
+        // funciones
+        function girar(id, cartasrc) {
+            if (clickable && cartasGiradas[id.toString().charAt(0) - 1][id.toString().charAt(1)] == false) {
+
+                img = document.getElementById(id)
+                img.src = `./Baraja/${cartasrc}.png`
+                pareja.push(img)
+
+                cartasGiradas
+                [pareja[0].id.toString().charAt(0) - 1]
+                [pareja[0].id.toString().charAt(1)] = true
+
+                if (giros == 1) {
+                    clickable = false
+                    setTimeout(function () {
+                        if (pareja[0].id != pareja[1].id && pareja[0].src == pareja[1].src) {
+
+                            cartasGiradas
+                            [pareja[1].id.toString().charAt(0) - 1]
+                            [pareja[1].id.toString().charAt(1)] = true
+
+                            parejasRestantes--
+                            parejas.innerHTML = `Parejas restantes: ${parejasRestantes}`
+                            pareja = []
+                            giros = 0
+                        } else {
+                            pareja[0].src = reset
+                            pareja[1].src = reset
+
+                            cartasGiradas
+                            [pareja[0].id.toString().charAt(0) - 1]
+                            [pareja[0].id.toString().charAt(1)] = false
+                            
+                            pareja = []
+                            giros = 0
+                        }
+                        clickable = true
+                        if (parejasRestantes == 0) {
+                            alert("Enhorabuena")
+                            btnReset.style.display = "block"
+                        }
+                    }, 1000)
+                }
+                giros++
+            }
+        }
+    </script>
+</body>
+
+</html>

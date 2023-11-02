@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego del 15</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <p id="numClicks">Aún no has hecho ningún movimiento</p>
+    <p id="cont"></p>
+
+    <script src="../../javascript/juegos.js"></script>
+
+    <script>
+        // inicializacion de variables
+        let movimientos = 0
+        const n = 4
+        let html = ""
+        const aTablas = Aleatorio(n)
+        let fila0 = n - 1
+        let col0 = n - 1
+        let finalizado = false
+        let tiempo = n * n * 10
+        let diferencia = n * n * 10
+        contadorIniciado = false
+
+        // creación del juego
+        cont.innerHTML = `Tiempo de partida: ${tiempo} segundos`
+        html += "<table>"
+        fila = 0; columna = 0
+        for (arr of aTablas) {
+            html += "<tr>"
+            for (value of arr) {
+                html += "<td>"
+                html += `<img class="ficha" src="./Numeros/n${value}.gif" id="ficha${fila}${columna}" onClick="mover(${fila},${columna})">`
+                html += "</td>"
+                columna++
+            }
+            html += "</tr>"
+            columna = 0; fila++
+        }
+        html += "</table>"
+        container.innerHTML = html
+
+        // funcion que se encargará de mover las fichas
+        function mover(fila, columna) {
+
+            //contador de segundos automatizado
+            if (!contadorIniciado) {
+                intervalo = setInterval(function () {
+                    if (tiempo > 0) {
+                        tiempo--
+                        cont.innerHTML = `Tiempo restante: ${tiempo} segundos`
+                    } else {
+                        finalizado = true
+                        alert("Se ha agotado el tiempo")
+                        clearInterval(intervalo)
+                    }
+                }, 1000)
+                contadorIniciado = true
+            }
+
+            // movimiento de las fichas en caso de que la partida esté todavía sin terminar
+            if (!finalizado) {
+                let ficha = document.getElementById(`ficha${fila}${columna}`)
+                let vacio = document.getElementById(`ficha${fila0}${col0}`)
+
+                // comprobación de movimiento de la ficha
+                if (
+                    (columna == col0 && (fila + 1 == fila0 || fila - 1 == fila0)) ||
+                    (fila == fila0 && (columna + 1 == col0 || columna - 1 == col0))
+                ) {
+
+                    // movimiento de la ficha
+                    [ficha.src, vacio.src] = [vacio.src, ficha.src];
+                    [aTablas[fila0][col0], aTablas[fila][columna]] = [aTablas[fila][columna], aTablas[fila0][col0]];
+                    fila0 = fila;
+                    col0 = columna;
+
+                    // el contador solo contempla los movimientos posibles
+                    movimientos++
+                    numClicks.innerHTML = "Has hecho " + movimientos + " movimientos"
+                }
+
+                // controlador de finalización
+                if (Array.from({ length: n * n - 1 }, (x, i) => i + 1).join(",") + ",0" == aTablas.flat()) {
+                    setTimeout(function () {
+                        clearInterval(intervalo)
+                        finalizado = true
+                        alert(`Enhorabuena, has termiado con ${movimientos} movimientos en ${diferencia - tiempo} segundos`)
+                    }, 250)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
