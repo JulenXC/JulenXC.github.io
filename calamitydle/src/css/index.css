@@ -1,0 +1,76 @@
+/* General CSS */
+body {
+  background-image: url("../imgs/fondo.jpg");
+  background-position: left top;
+}
+
+.good {
+  background-color: green;
+}
+
+.bad {
+  background-color: red;
+}
+
+/* Main CSS */
+
+div.main {
+  width: fit-content;
+  padding: 50px;
+  margin: auto;
+  text-align: center;
+  background-color: rgba(7, 75, 201, 0.8);
+  border-radius: 25px;
+  vertical-align: top;
+}
+
+div.main .logo {
+  height: 100px;
+}
+
+div.main .calamity {
+  margin-bottom: 50px;
+  margin-top: -40px;
+  height: 80px;
+}
+
+/* Select and Button css */
+
+#btnGuess {
+  height: 56px;
+  width: 75px;
+  vertical-align: top;
+  background-color: burlywood;
+  border-radius: 25px;
+}
+
+#bossGuess {
+  background-color: burlywood;
+  height: 56px;
+  font-size: 25px;
+}
+
+/* Bosses table css */
+table,
+tr,
+td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  color: white;
+  padding: 5px;
+}
+
+tr td {
+  width: 126px;
+}
+
+/* efecto de la tabla */
+tr:not(#bossProperties) td {
+  animation: altura 0.2s linear;
+}
+
+@keyframes altura {
+  0% {
+    font-size: 0px;
+  }
+}
