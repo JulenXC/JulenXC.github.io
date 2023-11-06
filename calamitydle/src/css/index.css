@@ -4,11 +4,11 @@ body {
   background-position: left top;
 }
 
-.good {
+.true {
   background-color: green;
 }
 
-.bad {
+.false {
   background-color: red;
 }
 

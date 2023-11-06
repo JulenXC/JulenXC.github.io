@@ -1,55 +1,65 @@
-let boss = "";
-let bosses;
+let boss = 0;
+let bosses = [];
 
 let htmlBuilder = "";
 
 let playable = true;
 
-function setBoss(bossPosition) {
-  boss = bossPosition;
+fetch("./src/js/data.json")
+  .then((response) => response.json())
+  .then((data) => setBosses(data))
+  .catch((error) => console.error("Error fetching JSON:", error));
+
+function setBosses(data) {
+  bosses = data.bosses;
+  boss += Math.floor(Math.random() * bosses.length) - 1;
 }
 
-function reader() {
-  bosses = [];
-  var rawFile = new XMLHttpRequest();
-  rawFile.open("GET", "./src/js/bosses.txt", false);
-  rawFile.onreadystatechange = function () {
-    if (rawFile.readyState === 4) {
-      if (rawFile.status === 200 || rawFile.status == 0) {
-        var allText = rawFile.responseText;
-        allText.split("\r\n").forEach((element) => {
-          bosses.push(element.split(";"));
-        });
-      }
-    }
-  };
-  rawFile.send(null);
-  return bosses.length;
+function loadOptions() {
+  let select = document.getElementById("bossGuess");
+  htmlBuilder = "<option value=''>Select Boss</option>";
+  bosses.forEach((bossData) => {
+    htmlBuilder += `<option value='${bossData.code}'>${bossData.name}</option>`;
+  });
+  select.innerHTML = htmlBuilder;
 }
 
 function comprobation(guess) {
   gameTable = document.getElementById("gameTable");
 
-  if (guess != "" && playable && bosses[guess][7] == "false") {
-    bosses[guess][7] = true;
+  if (guess != "" && playable && bosses[guess].tried == "false") {
+    bosses[guess].tried = true;
 
     let bossRow = document.createElement("tr");
 
-    for (i = 1; i <= 6; i++) {
-      if (bosses[boss][i] == bosses[guess][i]) {
-        data = document.createElement("td");
-        data.setAttribute("class", "good");
-        data.innerHTML = bosses[guess][i];
-      } else {
-        data = document.createElement("td");
-        data.setAttribute("class", "bad");
-        data.innerHTML = bosses[guess][i];
-      }
-      bossRow.appendChild(data);
-    }
+    htmlBuilder = `<td class="${bosses[boss].name == bosses[guess].name}">${
+      bosses[guess].name
+    }</td>`;
 
-    if (gameTable.children.length > 1) {
-      gameTable.insertBefore(bossRow, gameTable.children[1]);
+    htmlBuilder += `<td class="${bosses[boss].forms == bosses[guess].forms}">${
+      bosses[guess].forms
+    }</td>`;
+
+    htmlBuilder += `<td class="${
+      bosses[boss].difficulty == bosses[guess].difficulty
+    }">${bosses[guess].difficulty}</td>`;
+
+    htmlBuilder += `<td class="${
+      bosses[boss].species == bosses[guess].species
+    }">${bosses[guess].species}</td>`;
+
+    htmlBuilder += `<td class="${
+      bosses[boss].mainColor == bosses[guess].mainColor
+    }">${bosses[guess].mainColor}</td>`;
+
+    htmlBuilder += `<td class="${
+      bosses[boss].secondaryColor == bosses[guess].secondaryColor
+    }">${bosses[guess].secondaryColor}</td>`;
+
+    bossRow.innerHTML = htmlBuilder;
+
+    if (gameTable.children.length > 0) {
+      gameTable.insertBefore(bossRow, gameTable.children[0]);
     } else {
       gameTable.appendChild(bossRow);
     }
@@ -58,18 +68,10 @@ function comprobation(guess) {
       if (bosses[boss] == bosses[guess]) {
         document.getElementById("bossGuess").disabled = true;
         document.getElementById("btnGuess").disabled = true;
-        alert("Congratulations!");
+        if (confirm("Congratulations! Do you want to play again?")) {
+          window.location.href = "/calamitydle/";
+        }
       }
     }, 500);
   }
-}
-
-function loadOptions() {
-  setBoss(Math.floor(Math.random() * (reader() - 1)));
-  let select = document.getElementById("bossGuess");
-  let htmlBuilder = "<option value=''>Select Boss</option>";
-  bosses.forEach((element) => {
-    htmlBuilder += `<option value="${element[0]}">${element[1]}</option>`;
-  });
-  select.innerHTML = htmlBuilder;
 }

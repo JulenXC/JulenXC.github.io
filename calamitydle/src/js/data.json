@@ -1,0 +1,126 @@
+{
+  "bosses": [
+    {
+      "code":"0",
+      "name": "Slime King",
+      "forms": "1",
+      "difficulty": "Pre-Hardmode",
+      "species": "Slime",
+      "mainColor": "Blue",
+      "secondaryColor": "Yellow",
+      "tried": "false"
+    },
+    {
+      "code":"1",
+      "name": "Desert Scourge",
+      "forms": "1",
+      "difficulty": "Pre-Hardmode",
+      "species": "Worm",
+      "mainColor": "Brown",
+      "secondaryColor": "None",
+      "tried": "false"
+    },
+    {
+      "code":"2",
+      "name": "Eye of Cthulhu",
+      "forms": "2",
+      "difficulty": "Pre-Hardmode",
+      "species": "Flesh",
+      "mainColor": "White",
+      "secondaryColor": "Red",
+      "tried": "false"
+    },
+    {
+      "code":"3",
+      "name": "Crabulon",
+      "forms": "1",
+      "difficulty": "Pre-Hardmode",
+      "species": "Arthropodal",
+      "mainColor": "White",
+      "secondaryColor": "Blue",
+      "tried": "false"
+    },
+    {
+      "code":"4",
+      "name": "Brain of Cthulhu",
+      "forms": "2",
+      "difficulty": "Pre-Hardmode",
+      "species": "Flesh",
+      "mainColor": "Pink",
+      "secondaryColor": "None",
+      "tried": "false"
+    },
+    {
+      "code":"5",
+      "name": "Eater of Worlds",
+      "forms": "1",
+      "difficulty": "Pre-Hardmode",
+      "species": "Worm",
+      "mainColor": "Purple",
+      "secondaryColor": "None",
+      "tried": "false"
+    },
+    {
+      
+      "code":"6",
+      "name": "The Hive Mind",
+      "forms": "2",
+      "difficulty": "Pre-Hardmode",
+      "species": "Flesh",
+      "mainColor": "Purple",
+      "secondaryColor": "None",
+      "tried": "false"
+    },
+    {
+      "code":"7",
+      "name": "The Perforators",
+      "forms": "1",
+      "difficulty": "Pre-Hardmode",
+      "species": "Flesh",
+      "mainColor": "Red",
+      "secondaryColor": "None",
+      "tried": "false"
+    },
+    {
+      "code":"8",
+      "name": "Queen Bee",
+      "forms": "1",
+      "difficulty": "Pre-Hardmode",
+      "species": "Insect",
+      "mainColor": "Yellow",
+      "secondaryColor": "Black",
+      "tried": "false"
+    },
+    {
+      "code":"9",
+      "name": "Skeletron",
+      "forms": "1",
+      "difficulty": "Pre-Hardmode",
+      "species": "Undead",
+      "mainColor": "White",
+      "secondaryColor": "None",
+      "tried": "false"
+    },
+    {
+      
+      "code":"10",
+      "name": "The Slime God",
+      "forms": "2",
+      "difficulty": "Pre-Hardmode",
+      "species": "Slime",
+      "mainColor": "Red",
+      "secondaryColor": "Purple",
+      "tried": "false"
+    },
+    {
+      "code":"11",
+      "name": "The Wall of Flesh",
+      "forms": "1",
+      "difficulty": "Pre-Hardmode",
+      "species": "Flesh",
+      "mainColor": "Red",
+      "secondaryColor": "None",
+      "tried": "false"
+    }
+  ]
+}
