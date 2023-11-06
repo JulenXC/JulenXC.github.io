@@ -1,8 +1,6 @@
 let boss = 0;
 let bosses = [];
 
-let htmlBuilder = "";
-
 let playable = true;
 
 fetch("./src/js/data.json")
@@ -10,20 +8,14 @@ fetch("./src/js/data.json")
   .then((data) => setBosses(data))
   .catch((error) => console.error("Error fetching JSON:", error));
 
-loadOptions()
-
 function setBosses(data) {
   bosses = data.bosses;
   boss += Math.floor(Math.random() * bosses.length) - 1;
-}
-
-function loadOptions() {
-  let select = document.getElementById("bossGuess");
-  htmlBuilder = "<option value=''>Select Boss</option>";
   bosses.forEach((bossData) => {
-    htmlBuilder += `<option value='${bossData.code}'>${bossData.name}</option>`;
+    document.getElementById(
+      "bossGuess"
+    ).innerHTML += `<option value='${bossData.code}'>${bossData.name}</option>`;
   });
-  select.innerHTML = htmlBuilder;
 }
 
 function comprobation(guess) {
@@ -34,7 +26,7 @@ function comprobation(guess) {
 
     let bossRow = document.createElement("tr");
 
-    htmlBuilder = `<td class="${bosses[boss].name == bosses[guess].name}">${
+    let htmlBuilder = `<td class="${bosses[boss].name == bosses[guess].name}">${
       bosses[guess].name
     }</td>`;
 
@@ -71,7 +63,7 @@ function comprobation(guess) {
         document.getElementById("bossGuess").disabled = true;
         document.getElementById("btnGuess").disabled = true;
         if (confirm("Congratulations! Do you want to play again?")) {
-          window.location.href = "/calamitydle/";
+          window.location.reload();
         }
       }
     }, 500);
