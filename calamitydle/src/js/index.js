@@ -10,6 +10,8 @@ fetch("./src/js/data.json")
   .then((data) => setBosses(data))
   .catch((error) => console.error("Error fetching JSON:", error));
 
+loadOptions()
+
 function setBosses(data) {
   bosses = data.bosses;
   boss += Math.floor(Math.random() * bosses.length) - 1;
